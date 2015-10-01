@@ -1,7 +1,12 @@
 require "rails_helper"
 require 'csv'
+require_relative "./import_service_spec_helper"
+
+
 
 RSpec.describe ImportService do
+  include ImportServiceSpecHelper
+
   let(:service) { ImportService.new }
 
   describe '#import' do
@@ -14,10 +19,13 @@ RSpec.describe ImportService do
       expect(Banner.count).to eq 0
       expect(Conversion.count).to eq 0
       service.import(impressions_csv_path,clicks_csv_path,conversions_csv_path)
-      expect(Campaign.count).to be > 0
-      expect(Click.count).to be > 0
-      expect(Banner.count).to be > 0
-      expect(Conversion.count).to be > 0
+      # banners_set and campaigns_set created in spec helper
+      expect(Campaign.count).to eq campaigns_set.size
+      expect(Campaign.where("id in (?)", campaigns_set).size).to eq campaigns_set.size
+      expect(Banner.count).to eq banners_set.size
+      expect(Banner.where("id in (?)", banners_set).size).to eq banners_set.size
+      expect(Click.count).to be == clicks_set.size
+      expect(Conversion.count).to be == conversions_set.size
     end
 
   end

@@ -34,3 +34,9 @@ Using the github issue system to create the stories that abstracted from the tas
     * These class allows system administrator to import to the database data from CSV files.
     * Currently this class is designed to support reading from clicks, conversions and impressions CSV files.
     * location: in app/services/import_service.rb
+
+### Tests
+  * ImportServiceSpecHelper
+    * Allows for the ImportService to have a clean code. Implemented in order to learn more ruby :)
+    * grabs from the csv file, and gets a set all campaigns existent and other set with banners, clicks, conversions. Note that took time in this, but code was clean.
+
