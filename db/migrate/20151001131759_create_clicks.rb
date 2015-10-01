@@ -1,7 +1,7 @@
 class CreateClicks < ActiveRecord::Migration
   def change
     create_table :clicks do |t|
-      t.banner :references
+      t.references :banner, index: true, foreign_key: true
 
       t.timestamps null: false
     end
