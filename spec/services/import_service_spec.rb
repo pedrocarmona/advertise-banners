@@ -26,6 +26,7 @@ RSpec.describe ImportService do
       expect(Banner.where("id in (?)", banners_set).size).to eq banners_set.size
       expect(Click.count).to be == clicks_set.size
       expect(Conversion.count).to be == conversions_set.size
+      expect(Conversion.sum(:revenue)).to be == revenue_from_csv
     end
 
     it 'entries should not duplicate when importing twice from CSV' do

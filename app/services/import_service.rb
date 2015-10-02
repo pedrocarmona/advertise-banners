@@ -35,7 +35,7 @@ class ImportService
     #row: conversion_id,click_id,revenue
     CSV.foreach(conversions_csv_path, {:row_sep => :auto, :headers => :first_row}) do | row |
       click = Click.find_or_create_by(id: row[CLICK_ID]) if row[CLICK_ID].to_i > 0
-      Conversion.create_or_update_from_csv(row[CONVERSION_ID], click, row[CONVERSION_ID]) if row[CONVERSION_ID].to_i > 0
+      Conversion.create_or_update_from_csv(row[CONVERSION_ID], click, row[REVENUE]) if row[CONVERSION_ID].to_i > 0
     end
   end
 

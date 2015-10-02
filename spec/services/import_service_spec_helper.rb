@@ -6,6 +6,7 @@ module ImportServiceSpecHelper
   BANNER_ID = 'banner_id'
   CLICK_ID = 'click_id'
   CONVERSION_ID = 'conversion_id'
+  REVENUE = 'revenue'
 
   def campaigns_set
     # impressions_csv_path,clicks_csv_path must be variable in the implementation class
@@ -25,6 +26,15 @@ module ImportServiceSpecHelper
   def conversions_set
     # impressions_csv_path,clicks_csv_path must be variable in the implementation class
     @conversions_set ||= create_set_from_csv(CONVERSION_ID,[conversions_csv_path])
+  end
+
+  def revenue_from_csv
+    revenue = 0
+    CSV.foreach(conversions_csv_path, {:row_sep => :auto, :headers => :first_row}) do | row |
+      r = row[REVENUE].to_f
+      revenue += r if r > 0.0
+    end
+    revenue
   end
 
   def create_set_from_csv(column,csv_files)
