@@ -35,8 +35,16 @@ Using the github issue system to create the stories that abstracted from the tas
     * Currently this class is designed to support reading from clicks, conversions and impressions CSV files.
     * location: in app/services/import_service.rb
 
-### Tests
+## Tests
+### Classes
   * ImportServiceSpecHelper
     * Allows for the ImportService to have a clean code. Implemented in order to learn more ruby :)
     * grabs from the csv file, and gets a set all campaigns existent and other set with banners, clicks, conversions. Note that took time in this, but code was clean.
+### Tests to Import service
+  * Size of campaigns in database should be equal to all campaigns in csv files (create a set with all read campaigns)
+  * Query campaigns in database with all campaign ids in csv files and the query's results size should be equal to the size set read from the CSV files. These guarantees that all ids were imported correctly.
+  * Size of banners in database should be equal to all banners in csv files (create a set with all read banners)
+  * Size of clicks should be equal to number of rows
+  * Size of impressions should be equal to number of rows
+  * If admin runs the service import twice, database should not duplicate values.
 
