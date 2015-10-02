@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001131813) do
+ActiveRecord::Schema.define(version: 20151002083051) do
 
   create_table "banners", force: :cascade do |t|
     t.integer  "campaign_id"
@@ -36,9 +36,9 @@ ActiveRecord::Schema.define(version: 20151001131813) do
 
   create_table "conversions", force: :cascade do |t|
     t.integer  "click_id"
-    t.string   "revenue"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.float    "revenue",    default: 0.0
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_index "conversions", ["click_id"], name: "index_conversions_on_click_id"
