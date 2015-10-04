@@ -5,11 +5,14 @@ class CampaignsController < ApplicationController
   # GET /campaigns.json
   def index
     @campaigns = Campaign.all
+
   end
 
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
+    #puts "banners_queue:#{session[:banners_queue]}"
+    @presenter = Campaigns::CampaignPresenter.new(@campaign, session)
   end
 
   # GET /campaigns/new

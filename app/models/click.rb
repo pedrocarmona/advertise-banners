@@ -1,4 +1,4 @@
 class Click < ActiveRecord::Base
-  has_many :conversions
+  has_one :conversion
   belongs_to :banner
 end
