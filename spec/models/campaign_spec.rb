@@ -46,7 +46,7 @@ RSpec.describe Campaign, type: :model do
     end
 
     it "presenter should show most profitable" do
-      expect(campaign.present_banners.map(&:id)).to eq campaign_most_profitable_banners_ids
+      expect(campaign.top_banners.map(&:id)).to eq campaign_most_profitable_banners_ids
     end
 
   end
@@ -77,7 +77,7 @@ RSpec.describe Campaign, type: :model do
     end
 
     it "presenter should show most profitable" do
-      expect(campaign.present_banners.map(&:id)).to eq campaign_most_profitable_banners_ids
+      expect(campaign.top_banners.map(&:id)).to eq campaign_most_profitable_banners_ids
     end
 
   end
@@ -108,7 +108,7 @@ RSpec.describe Campaign, type: :model do
     end
 
     it "presenter should show 5 banners (the most profitable with the most clicked) " do
-      expect(campaign.present_banners.map(&:id)).to eq the_most_profitable_plus_the_most_clicked_banners
+      expect(campaign.top_banners.map(&:id)).to eq the_most_profitable_plus_the_most_clicked_banners
     end
 
   end
@@ -139,10 +139,10 @@ RSpec.describe Campaign, type: :model do
     end
 
     it "presenter should show 5 banners (the most clicked with random non clicked banners) " do
-      expect(campaign.present_banners.map(&:id)[0..3]).to match_array(campaign_most_most_clicked_banners_ids)
-      last_banner = campaign.present_banners.map(&:id)[4]
+      expect(campaign.top_banners.map(&:id)[0..3]).to match_array(campaign_most_most_clicked_banners_ids)
+      last_banner = campaign.top_banners.map(&:id)[4]
       expect(non_clicked_banners.map(&:id).to_set.include?(last_banner)).to be true
-      expect(campaign.present_banners.map(&:id)).not_to eq (campaign2.present_banners.map(&:id))
+      expect(campaign.top_banners.map(&:id)).not_to eq (campaign2.top_banners.map(&:id))
     end
 
   end
@@ -168,10 +168,10 @@ RSpec.describe Campaign, type: :model do
     end
 
     it "presenter should show 5 banners (with random non clicked banners) " do
-      campaign.present_banners.each do |banner|
+      campaign.top_banners.each do |banner|
         expect(non_clicked_banners.map(&:id).to_set.include?(banner.id)).to be true
       end
-      expect(campaign.present_banners.map(&:id)).not_to eq (campaign2.present_banners.map(&:id))
+      expect(campaign.top_banners.map(&:id)).not_to eq (campaign2.top_banners.map(&:id))
     end
 
   end

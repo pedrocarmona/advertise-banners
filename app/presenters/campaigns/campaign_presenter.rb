@@ -1,9 +1,11 @@
-module Campaigns
-  class CampaignPresenter
+require "action_dispatch/middleware/session/cookie_store"
 
-    def initialize(controller, campaign)
-      @controller = controller
+module Campaigns
+  class CampaignPresenter < ActionDispatch::Session::CookieStore
+
+    def initialize(campaign, session)
       @campaign = campaign
+      @session = session
     end
 
     def current_banner
@@ -12,8 +14,9 @@ module Campaigns
 
   private
     def banners_queue
-      @banners_queue = @controller.session[:banners_queue]
-      @banners_queue ||= @campaign.present_banners.map(&:id).shuffle
+      @banners_queue ||= @session[:banners_queue]
+      @banners_queue ||= @campaign.top_banners.map(&:id).shuffle
+      @banners_queue
     end
 
     def get_next_banner
@@ -24,7 +27,7 @@ module Campaigns
 
     def save_banners_queue
       @banners_queue = nil if banners_queue.empty?
-      @controller.session[:banners_queue] = @banners_queue
+      @session[:banners_queue] = @banners_queue
     end
   end
 end

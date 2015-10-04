@@ -11,7 +11,8 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
-    @presenter = Campaigns::CampaignPresenter.new(self, @campaign)
+    #puts "banners_queue:#{session[:banners_queue]}"
+    @presenter = Campaigns::CampaignPresenter.new(@campaign, session)
   end
 
   # GET /campaigns/new

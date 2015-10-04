@@ -2,7 +2,7 @@ class Campaign < ActiveRecord::Base
   has_many :banners
   has_many :conversions, through: :banners
 
-  def present_banners
+  def top_banners
     if most_profitable_banners_ids.size > 5
       return most_profitable_banners
     elsif most_profitable_banners_ids.size > 0
