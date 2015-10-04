@@ -4,9 +4,11 @@ class Banner < ActiveRecord::Base
   has_many :conversions, through: :clicks
   scope :most_profitable, -> {
    joins(:conversions).
-   select('banners.id, sum(revenue) total_revenue').
+   select('banners.*').
    group("banners.id").
-   order('sum(revenue) desc')
+   having('sum(revenue) > 0').
+   order('sum(revenue) desc').
+   limit(10)
   }
   # Banner.most_profitable.map(&:id)
   # Banner.most_profitable.map(&:total_revenue)
@@ -29,5 +31,6 @@ class Banner < ActiveRecord::Base
   def total_revenue
     self.conversions.sum(:revenue)
   end
+
 end
 

@@ -5,11 +5,13 @@ class CampaignsController < ApplicationController
   # GET /campaigns.json
   def index
     @campaigns = Campaign.all
+
   end
 
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
+    @presenter = Campaigns::CampaignPresenter.new(self, @campaign)
   end
 
   # GET /campaigns/new
