@@ -2,13 +2,14 @@
 A web-application to serve banners for an advertising agency.
 
 ## Install Instruction
+  * clone repository
   * Please note that the image files and csv files dont exist on the repo (just some test smaller csv's).
     * Place images files in a folder: [project_folder]/public/images/
     * Place csv files in a folder: [project_folder]/csv/
-  * clone repository
   * setup the database
 
     ```
+    $ bundle
     $ rake db:migrate
     ```
 
@@ -16,15 +17,14 @@ A web-application to serve banners for an advertising agency.
 
     ```
     $ rails c
+    impressions_csv_path = Rails.root.join "csv/impressions_1.csv"
+    clicks_csv_path =  Rails.root.join "csv/clicks_1.csv"
+    conversions_csv_path = Rails.root.join "csv/conversions_1.csv"
     ImportService.new.import(impressions_csv_path,clicks_csv_path,conversions_csv_path)
     exit
     $ rails s
     ```
-
-    * A sample path is using the sample test cases (not that this files are smaller than the files provided)
-        - impressions_csv_path = Rails.root.join "csv/impressions_1.csv"
-        - clicks_csv_path =  Rails.root.join "csv/clicks_1.csv"
-        - conversions_csv_path = Rails.root.join "csv/conversions_1.csv"
+    
   * perform request in http://localhost:300/campaigns/
       - here you can see a list of campaigns, with several categories of banners (banners with profit, banners with clicks but no revenue and banners without clicks)
 
@@ -48,14 +48,16 @@ A web-application to serve banners for an advertising agency.
     * fields: id, click_id, revenue)
 
 ### Services
+ CSV files contain data of the banners. The top banners of a capaign are calculated based on rules. Processing that data in every resquest is a long process. In order to have small response times, its needed a database component, that will store these information and process it faster.
   * ImportService
     * These class allows system administrator to import to the database data from CSV files.
     * Currently this class is designed to support reading from clicks, conversions and impressions CSV files.
     * location: in app/services/import_service.rb
+    * 
 
 ### Presenters
   * CampaignPresenter
-    * In order to keep the controller clean, its possible to take advantage of the presenters design pattern, and pass some logic to the presenter. As it was required to show a random order of objects, here that order is done, as well as saving in a session the random sequence generator, to avoid saturation. The data structure used was an array, that implements a queue mechanism, using the pop function.
+    * In order to keep the controller clean, its possible to take advantage of the presenters design pattern, and pass some logic to the presenter. As it was required to show banners in a random order, as well as saving in a session the random sequence generator, to avoid saturation. The data structure used was an array, that implements a queue mechanism, using the pop function.
       - You can trigger this line in the method show of the campaigns controller to see the sequence changing:
 
 ```
@@ -63,7 +65,7 @@ A web-application to serve banners for an advertising agency.
 ```
 
 ## Tests
-Please run the tests in you computer
+Please run the tests in you computer using the following command:
 
 ```
     rspec
@@ -83,7 +85,20 @@ Please run the tests in you computer
   * If admin runs the service import twice, database should not duplicate values.
 
 ### Tests show banners
-  * test of the function to show banners in several combinations. Please refer to file spec/models/campaign_spec.rb to more information. Note that there is a module campaign_spec_helper, that implements some logic recurring to arrays, in order to validate the code developed with scopes.
-  * also capybara tests can be found in /spec/views/campaigns/show.html.erb_spec.rb
+  * CampaignSpecHelper
+    * Implements some logic recurring to arrays, in order to validate the source code developed recorring to active record scopes. 
+  * Campaign Model spec
+    * location: spec/models/campaign_spec.rb. 
+    * These file tests the model Campaign in the following combinations:
+      * campaign with three types of banners
+      * campaign with 12 profitable banners, plus one banner clicked without revenue and one banner not clicked
+      * campaign with 7 profitable banners, plus five banner clicked without revenue and one banner not clicked
+      * campaign with 4 profitable banners, plus 10 banners clicked without revenue and one banner not clicked
+      * campaign with 4 banners clicked without revenue and 10 banners not clicked
+      * campaign with 20 banners not clicked
+      
+  * Campaign show test
+    * The file uses capybara to test the sequence of top banners shown to the user. The test consists in grabbing a campaign instance with 10 top banners, and when the user does 10 times the request, the banner must not repeat in that sequence.
+    * location /spec/views/campaigns/show.html.erb_spec.rb
 
 
