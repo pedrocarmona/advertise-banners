@@ -2,6 +2,9 @@
 A web-application to serve banners for an advertising agency.
 
 ## Install Instruction
+  * Please not that the image files and csv files dont exist on the repo.
+    * Place images files in a folder: [project_folder]/public/images/
+    * Place csv files in a folder: [project_folder]/csv/
   * clone repository
   * setup the database
 
@@ -19,9 +22,9 @@ A web-application to serve banners for an advertising agency.
     ```
 
     * A sample path is using the sample test cases (not that this files are smaller than the files provided)
-        - impressions_csv_path = Rails.root.join "spec/csv/impressions_1.csv"
-        - clicks_csv_path =  Rails.root.join "spec/csv/clicks_1.csv"
-        - conversions_csv_path = Rails.root.join "spec/csv/conversions_1.csv"
+        - impressions_csv_path = Rails.root.join "csv/impressions_1.csv"
+        - clicks_csv_path =  Rails.root.join "csv/clicks_1.csv"
+        - conversions_csv_path = Rails.root.join "csv/conversions_1.csv"
   * perform request in http://localhost:300/campaigns/
       - here you can see a list of campaigns, with several categories of banners (banners with profit, banners with clicks but no revenue and banners without clicks)
 
@@ -81,5 +84,6 @@ Please run the tests in you computer
 
 ### Tests show banners
   * test of the function to show banners in several combinations. Please refer to file spec/models/campaign_spec.rb to more information. Note that there is a module campaign_spec_helper, that implements some logic recurring to arrays, in order to validate the code developed with scopes.
+  * also capybara tests can be found in /spec/views/campaigns/show.html.erb_spec.rb
 
 
