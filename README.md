@@ -2,7 +2,7 @@
 A web-application to serve banners for an advertising agency.
 
 ## Install Instruction
-  * Please not that the image files and csv files dont exist on the repo.
+  * Please note that the image files and csv files dont exist on the repo (just some test smaller csv's).
     * Place images files in a folder: [project_folder]/public/images/
     * Place csv files in a folder: [project_folder]/csv/
   * clone repository
