@@ -1,7 +1,6 @@
-require "action_dispatch/middleware/session/cookie_store"
 
 module Campaigns
-  class CampaignPresenter < ActionDispatch::Session::CookieStore
+  class CampaignPresenter
 
     def initialize(campaign, session)
       @campaign = campaign
