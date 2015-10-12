@@ -1,7 +1,12 @@
 # advertise-banners
+
 A web-application to serve banners for an advertising agency.
 
+[![Code Climate](https://codeclimate.com/repos/561be162e30ba006bc0003d0/badges/e1abadaef90b840839d6/gpa.svg)](https://codeclimate.com/repos/561be162e30ba006bc0003d0/feed)
 
+## Objective
+
+Display ad banners that belong to a campaign.
 The campaign banners are displayed following these formula:
 
 X = number of banners with revenue within that campaign
