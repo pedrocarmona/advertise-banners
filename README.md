@@ -1,6 +1,18 @@
 # advertise-banners
 A web-application to serve banners for an advertising agency.
 
+
+The campaign banners are displayed following these formula:
+
+X = number of banners with revenue within that campaign
+
+1. X > 5
+  show at most ten of the banners with more revenue within that campaign
+2. X > 0
+  mix the banners with more revenue within that campaign, and complete with most clicked
+3. X == 0
+  mix with most clicked banners with random banners
+
 ## Install Instruction
   * clone repository
   * Please note that the image files and csv files dont exist on the repo (just some test smaller csv's).
